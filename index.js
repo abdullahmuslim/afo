@@ -10,8 +10,9 @@ const handleAction = e => {
 }
 
 const cards = [...document.querySelectorAll(".card")];
-cards.map( (card, index) => {
-  card.style.backgroundImage = `url("./images/img${index+1}.png")`;
+cards.map( card => {
+  const src = card.getAttribute("img");
+  card.style.backgroundImage = `url("${src}")`;
 });
 
 const productActions = [...document.querySelectorAll(".productAction")];

@@ -131,7 +131,7 @@ img {
 }
 
 .productName {
-  grid-area: 4 / 1 / 5 / 3;
+  grid-area: 4 / 1 / 5 / 4;
 }
 .productDesc {
   grid-area: 5 / 1 / 6 / 4;
@@ -140,6 +140,7 @@ img {
 .productAction {
   grid-area: 6 / 3 / 7 / 4;
   padding-block: 8px;
+  margin-top: 8px;
   border: 2px solid var(--accent-colour);
   cursor: pointer;
   transition: all 0.3s ease;

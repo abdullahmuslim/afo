@@ -13,10 +13,11 @@
 }
 
 body {
+  display: flex;
+  justify-content: center;
   width: 100vw;
-  height: 100dvh;
   padding: 16px;
-  font-family: 'Montserrat';
+  font-family: 'Montserrat', sans-serif;
   font-size: 16px;
   background-color: var(--primary-colour);
 }
@@ -25,7 +26,7 @@ body {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-auto-flow: rows;
-  /* grid-auto-rows: 1fr; */
+  grid-auto-rows: auto;
   gap: 24px;
 }
 
@@ -47,7 +48,6 @@ body {
 }
 
 .main {
-  grid-row: 2 / 5;
   font-weight: 800;
   color: var(--primary-colour);
   background-color: var(--secondary-colour);
@@ -69,10 +69,14 @@ body {
   align-self: flex-end;
   padding: 8px;
   margin-top: 8px;
-  color: var(--primary-colour);
+  color: var(--secondary-colour);
   text-decoration: none;
-  border: 1px solid var(--primary-colour);
+  transition: all 0.3s ease-in;
   background-color: var(--accent-colour);
+}
+
+.main a:hover {
+  border: 1px solid var(--primary-colour);
 }
 
 h1 {
@@ -84,26 +88,24 @@ h1 {
 
 img {
   /* display: none; */
-  width: 32px;
-  height: auto;
+  width: 48px;
+
 }
 
 .carousel {
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: 100px;
-  height: 350px;
+  grid-auto-columns: 90px;
+  height: 500px;
   overflow-x: auto;
   gap: 16px;
 }
 .card {
   display: grid;
   grid-template-columns: subgrid;
-  grid-template-rows: repeat(5, 1fr);
-  grid-column: span 2;
-  grid-row: span 3;
+  grid-template-rows: repeat(4, 1fr);
+  grid-column: span 3;
   position: relative;
-  height: min(400px, 100%);
   padding: 16px;
   background-color: var(--primary-colour);
   background-size: cover;
@@ -125,28 +127,25 @@ img {
 .corner span {
   display: inline-block;
   transform: rotate(-45deg);
-  /* text-shadow: 0 0 10px rgba(255, 255, 255, 0.8); */
   font-weight: bold;
 }
 
-.card .overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.1);
-}
 .productName {
-  grid-area: 4 / 1 / 5 / -1;
+  grid-area: 4 / 1 / 5 / 3;
 }
 .productDesc {
-  grid-area: 5 / 1 / 6 / -1;
+  grid-area: 5 / 1 / 6 / 4;
+  margin-bottom: 8px;
 }
 .productAction {
-  grid-area: 6 / 2 / 7 / -1;
-  padding-block: 4px;
-  border: 1px solid var(--accent-colour);
+  grid-area: 6 / 3 / 7 / 4;
+  padding-block: 8px;
+  border: 2px solid var(--accent-colour);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.productAction:hover {
+  background-color: var(--accent-colour);
 }
 
 .contact h2{

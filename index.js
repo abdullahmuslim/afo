@@ -9,10 +9,24 @@ const handleAction = e => {
     
 }
 
+const logo = new Image();
+logo.src = "./images/logo.jpg";
+logo.onload = () => {
+  const loadAnime = document.querySelector(".miniLoading");
+  loadAnime.style.display = "none";
+  loadAnime.parentElement.appendChild(logo);
+}
+
 const cards = [...document.querySelectorAll(".card")];
 cards.map( card => {
   const src = card.getAttribute("img");
-  card.style.backgroundImage = `url("${src}")`;
+  const image = new Image();
+  image.src = src;
+  image.onload = () => {
+    card.style.backgroundImage = `url("${src}")`;
+    card.style.animation = "none";
+    card.style.backgroundSize = "cover";
+  }
 });
 
 const productActions = [...document.querySelectorAll(".productAction")];

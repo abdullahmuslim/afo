@@ -107,8 +107,10 @@ img {
   grid-column: span 3;
   position: relative;
   padding: 16px;
-  background-color: var(--primary-colour);
-  background-size: cover;
+  background-size: 2000px 800px;
+  background-image: linear-gradient(to right, var(--secondary-colour), var(--primary-colour), var(--secondary-colour));
+  animation: loading 3s infinite normal;
+  /* background-size: cover; */
 }
 .corner {
   display: flex;
@@ -176,10 +178,9 @@ img {
 /* image loading place holder */
 .miniLoading {
   display: inline-block;
-  display: none;
-  width: 32px;
-  height: 32px;
-  background-size: 128px 128px;
+  width: 48px;
+  height: 48px;
+  background-size: 192px 192px;
   background-image: linear-gradient(to right, var(--secondary-colour), var(--primary-colour), var(--secondary-colour));
   animation: loading 2s infinite normal;
 }

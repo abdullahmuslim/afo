@@ -152,12 +152,14 @@ img {
 }
 
 .contact h2{
+  margin-block: 16px;
   font-size: 24px;
 }
 .contact .info {
+  gap: 8px;
   display: flex;
   flex-direction: row;
-  margin-block: 4px;
+  margin-bottom: 8px;
 }
 .contact a {
   color: var(--secondary-colour);

@@ -95,6 +95,7 @@ img {
 .carousel {
   display: grid;
   grid-auto-flow: column;
+  grid-template-rows: repeat(7, 1fr);
   grid-auto-columns: 90px;
   height: 500px;
   overflow-x: auto;
@@ -103,8 +104,9 @@ img {
 .card {
   display: grid;
   grid-template-columns: subgrid;
-  grid-template-rows: repeat(4, 1fr);
+  grid-template-rows: subgrid;
   grid-column: span 3;
+  grid-row: span 7;
   position: relative;
   padding: 16px;
   background-size: 2000px 800px;
@@ -133,14 +135,14 @@ img {
 }
 
 .productName {
-  grid-area: 4 / 1 / 5 / 4;
+  grid-area: 5 / 1 / 6 / 4;
 }
 .productDesc {
-  grid-area: 5 / 1 / 6 / 4;
+  grid-area: 6 / 1 / 7 / 4;
   margin-bottom: 8px;
 }
 .productAction {
-  grid-area: 6 / 3 / 7 / 4;
+  grid-area: 7 / 3 / 8 / 4;
   padding-block: 8px;
   margin-top: 8px;
   border: 2px solid var(--accent-colour);

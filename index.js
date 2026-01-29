@@ -9,6 +9,10 @@ const handleAction = e => {
     
 }
 
+const main = document.querySelector(".main");
+const randomInt = () => Math.floor(Math.random() * 99);
+main.style.backgroundPosition = `${randomInt()}% ${randomInt()}%`;
+
 const logo = new Image();
 logo.src = "./images/logo.jpg";
 logo.onload = () => {

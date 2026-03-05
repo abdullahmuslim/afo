@@ -1,3 +1,5 @@
+import Carousel, {Card} from "./carousel.js";
+
 const handleAction = e => {
     const target = e.currentTarget;
     const el = target.parentElement.children[1];
@@ -32,6 +34,9 @@ cards.map( card => {
     card.style.backgroundSize = "cover";
   }
 });
+
+const fetchedData = [1, 2, 3, 4, 5, 6, 7, 8];
+const carousel = new Carousel(fetchedData);
 
 const productActions = [...document.querySelectorAll(".productAction")];
 productActions.map( action => action.addEventListener("click", handleAction));

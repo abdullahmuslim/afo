@@ -68,15 +68,24 @@ export class Card {
   }
 
   style(index, cuttoff){
+    // set stacking
     const zIndex = `-${(index > cuttoff ? index - cuttoff : index)}`;
     const elementStyle = this.el.style;
     elementStyle.zIndex = zIndex;
     
+    // set position
     const divisionMultiplier = (100/3);
-    elementStyle.left = `${(index < cuttoff) ? divisionMultiplier + (index * 25) : divisionMultiplier + (25 * (cuttoff - index))}%`;
+    elementStyle.left = `${(index < cuttoff+1) ? divisionMultiplier + (index * 25) : divisionMultiplier + (25 * (cuttoff - index))}%`;
 
+    // hide excess
     const display = `${(index <= cuttoff*2) ? "grid" : "none"}`;
     elementStyle.display = display;
+
+    // set sizing
+    // const size = Math.abs(1 / (Number(zIndex)+1));
+    // console.log(size);
+    // elementStyle.transform = `scale(${size})`;
+
   }
 
   static clone(card){

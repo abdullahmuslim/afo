@@ -23,6 +23,65 @@ logo.onload = () => {
   loadAnime.parentElement.appendChild(logo);
 }
 
+const fetchedData = [
+  {
+    img: "./images/img1.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/ps5.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/jblcharge6.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/img2.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/oraimospeaker.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/img3.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/opensnap.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  {
+    img: "./images/redmibuds6.png",
+    corner: "20% off",
+    name: "Mobile Gimbal Stabilizer",
+    description: "Don't just record your life - capture it in cinematic quality",
+  },
+  
+];
+const carousel = new Carousel(fetchedData);
+
+const [prev, next] = [...document.querySelector(".carousel-buttons").children];
+const handlePrev = () => carousel.prev();
+const handleNext = () => carousel.next();
+prev.addEventListener("click", handlePrev);
+next.addEventListener("click", handleNext);
+
 const cards = [...document.querySelectorAll(".card")];
 cards.map( card => {
   const src = card.getAttribute("img");
@@ -35,8 +94,6 @@ cards.map( card => {
   }
 });
 
-const fetchedData = [1, 2, 3, 4, 5, 6, 7, 8];
-const carousel = new Carousel(fetchedData);
 
 const productActions = [...document.querySelectorAll(".productAction")];
 productActions.map( action => action.addEventListener("click", handleAction));

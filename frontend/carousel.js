@@ -7,8 +7,8 @@ class Carousel {
 
   constructor(cardsInfo){
     cardsInfo.some((card, index) => {
+      if (index >= this.#maxCard) return true;
       this.cards.push(new Card(card));
-      if (index >= this.#maxCard - 1) return true;
     });
 
     //duplicate the original card instances
@@ -16,33 +16,34 @@ class Carousel {
       this.cards.push(Card.clone(card));
     });
 
-    this.render();
+    this.#render();
+    
   }
 
-  render(){
+  #render(){
     // Carousel initialisation and addition to DOM
-    const carousel = document.querySelector(".carousel");
-    carousel.innerHTML = ""; // remove initial markup
+    const container = document.querySelector(".carousel");
+    // set initial markup
+    container.innerHTML = `
+      <div class="cards-holder"></div>
+      <div class="carousel-buttons">
+        <button id="carousel-prev">prev</button>
+        <button id="carousel-next">next</button>
+      </div>
+      <div class="indicators"></div>
+    `;
+    
+    const cardsHolder = document.querySelector(".cards-holder");
     this.cards.map(card => {
-      carousel.appendChild(card.el);
+      cardsHolder.appendChild(card.el);
     });
+    
+    
 
     this.#arrange();
+    this.#generateIndicator();
+    this.indicate();
 
-  }
-
-  next(){
-    // bring card to the right to focus
-    const old = this.cards.shift();
-    this.cards.push(old);
-    this.#arrange();
-  }
-  
-  prev(){
-    // bring card to the left to focus
-    const old = this.cards.pop();
-    this.cards.unshift(old);
-    this.#arrange();
   }
 
   #arrange(){
@@ -51,6 +52,44 @@ class Carousel {
       card.style(index, this.#cuttoff);
     });
   }
+  
+  #generateIndicator(){
+    const indicators = document.querySelector(".indicators");
+    for (let i = 0; i < this.#maxCard; i++){
+      const span = document.createElement("span");
+      indicators.appendChild(span);
+    }
+  }
+  
+  next(){
+    // bring card to the right to focus
+    const old = this.cards.shift();
+    this.cards.push(old);
+    this.#arrange();
+    this.indicate();
+  }
+  
+  prev(){
+    // bring card to the left to focus
+    const old = this.cards.pop();
+    this.cards.unshift(old);
+    this.#arrange();
+    this.indicate();
+  }
+  
+  indicate(){
+    const indicators = [...document.querySelector(".indicators").children];
+    const activeElement = this.cards[0].el;
+    const container = activeElement.parentElement;
+    let activeIndex = [...container.children].indexOf(activeElement);
+    activeIndex = (activeIndex > this.#maxCard) ? activeIndex - (this.#maxCard+1) : activeIndex;
+    indicators.map((indicator, index) => {
+      indicator.classList.remove("active");
+      console.log(index, activeIndex, indicators.length);
+      if (index === activeIndex) indicator.classList.add("active");
+    })
+  }
+
 
 }
 
@@ -62,8 +101,14 @@ export class Card {
   constructor(cardInfo){
     this.cardInfo = cardInfo;
     const element = document.createElement("div");
+    element.innerHTML = `
+      <p class="corner"><span>${cardInfo.corner}</span></p>
+      <h3 class="productName">${cardInfo.name}</h3>
+      <p class="productDesc">${cardInfo.description}</p>
+      <button class="productAction" type="button">request</button>
+    `;
     element.classList.add("card");
-    element.textContent = "card" + cardInfo;
+    element.setAttribute("img", cardInfo.img);
     this.el = element;
   }
 
@@ -74,7 +119,8 @@ export class Card {
     elementStyle.zIndex = zIndex;
     
     // set position
-    const divisionMultiplier = (100/3);
+    // positioning is also dependent on size incorporated translate property
+    const divisionMultiplier = (100/2);
     elementStyle.left = `${(index < cuttoff+1) ? divisionMultiplier + (index * 25) : divisionMultiplier + (25 * (cuttoff - index))}%`;
 
     // hide excess
@@ -82,9 +128,9 @@ export class Card {
     elementStyle.display = display;
 
     // set sizing
-    // const size = Math.abs(1 / (Number(zIndex)+1));
-    // console.log(size);
-    // elementStyle.transform = `scale(${size})`;
+    const size = (index <= cuttoff) ? Math.abs(1 - (index*0.3)) : Math.abs((1 - (index - cuttoff)*0.3));
+    // console.log(index, zIndex, size);
+    elementStyle.transform = `translate(-50%, 0%) scale(${size})`;
 
   }
 

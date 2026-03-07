@@ -11,7 +11,7 @@ const handleAction = e => {
     
 }
 
-const main = document.querySelector(".main");
+const main = document.querySelector(".hero");
 const randomInt = () => Math.floor(Math.random() * 99);
 main.style.backgroundPosition = `${randomInt()}% ${randomInt()}%`;
 
@@ -32,13 +32,13 @@ const fetchedData = [
   },
   {
     img: "./images/ps5.png",
-    corner: "20% off",
+    corner: "",
     name: "Mobile Gimbal Stabilizer",
     description: "Don't just record your life - capture it in cinematic quality",
   },
   {
     img: "./images/jblcharge6.png",
-    corner: "20% off",
+    corner: "20% off more",
     name: "Mobile Gimbal Stabilizer",
     description: "Don't just record your life - capture it in cinematic quality",
   },
@@ -82,15 +82,16 @@ const handleNext = () => carousel.next();
 prev.addEventListener("click", handlePrev);
 next.addEventListener("click", handleNext);
 
-const cards = [...document.querySelectorAll(".card")];
-cards.map( card => {
-  const src = card.getAttribute("img");
+const images = [...document.querySelectorAll(".card .img")];
+images.map( img => {
+  console.log(img);
+  const src = img.getAttribute("img");
   const image = new Image();
   image.src = src;
   image.onload = () => {
-    card.style.backgroundImage = `url("${src}")`;
-    card.style.animation = "none";
-    card.style.backgroundSize = "cover";
+    img.src = src;
+    img.style.animation = "none";
+    img.style.backgroundSize = "cover";
   }
 });
 

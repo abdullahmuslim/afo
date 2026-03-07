@@ -82,10 +82,15 @@ class Carousel {
     const activeElement = this.cards[0].el;
     const container = activeElement.parentElement;
     let activeIndex = [...container.children].indexOf(activeElement);
+    
+    // add active styling to the currently focused card
+    this.cards.map(card => card.el.classList.remove("active"));
+    this.cards[0].el.classList.add("active");
+    
     activeIndex = (activeIndex > this.#maxCard) ? activeIndex - (this.#maxCard+1) : activeIndex;
+    
     indicators.map((indicator, index) => {
       indicator.classList.remove("active");
-      console.log(index, activeIndex, indicators.length);
       if (index === activeIndex) indicator.classList.add("active");
     })
   }
@@ -102,13 +107,14 @@ export class Card {
     this.cardInfo = cardInfo;
     const element = document.createElement("div");
     element.innerHTML = `
-      <p class="corner"><span>${cardInfo.corner}</span></p>
+      ${(cardInfo.corner) ? `<p class="corner"><span>${cardInfo.corner}</span></p>` : ""}
+      <img class="img" img=${cardInfo.img} />
       <h3 class="productName">${cardInfo.name}</h3>
       <p class="productDesc">${cardInfo.description}</p>
       <button class="productAction" type="button">request</button>
     `;
     element.classList.add("card");
-    element.setAttribute("img", cardInfo.img);
+    // element.setAttribute("img", cardInfo.img);
     this.el = element;
   }
 

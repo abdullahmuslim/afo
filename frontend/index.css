@@ -134,13 +134,11 @@ h1 {
 .card {
   position: absolute;
   border: 1px solid var(--accent-colour);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 250px;
-  height: 400px;
-  display: grid;
-  grid-template-columns: subgrid;
-  grid-template-rows: subgrid;
-  grid-column: span 3;
-  grid-row: span 7;
   padding: 12px;
   background: rgba(255, 255, 255, 0.5);
   backdrop-filter: blur(15px);
@@ -171,7 +169,7 @@ h1 {
 
 .card .img{
   display: inline-block;
-  grid-area: 1 / 1 / 3 / 3;
+  margin-bottom: 16px;
   width: 100%;
   aspect-ratio: 1;
   background-size: 200% 100%;
@@ -205,15 +203,14 @@ h1 {
 }
 
 .productName {
-  grid-area: 5 / 1 / 6 / 4;
+  margin-bottom: 20px;
 }
 .productDesc {
-  grid-area: 6 / 1 / 7 / 4;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 .productAction {
-  grid-area: 7 / 3 / 8 / 4;
-  padding-block: 8px;
+  align-self: flex-end;
+  padding: 8px 16px;
   margin-top: 8px;
   border: 2px solid var(--accent-colour);
   cursor: pointer;
@@ -224,6 +221,7 @@ h1 {
 }
 
 .reviews {
+  display: flex;
   overflow-x: scroll;
   padding: 12px;
   margin-top: 64px;
@@ -231,7 +229,9 @@ h1 {
 .review {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  flex-shrink: 0;
+  margin-inline: 20px;
+  width: 300px;
   padding: 8px;
 }
 .review p {

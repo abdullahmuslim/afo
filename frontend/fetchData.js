@@ -1,4 +1,4 @@
-import Cards from "./components/Cards.js";
+import Carousel from "./carousel.js";
 
 const host = "http://localhost:1337";
 
@@ -62,7 +62,7 @@ async function fetchData(endpoint){
       return {...eachRes, img: host + eachRes.image[0].url}
     });
     
-    const cards = new Cards(res);
+    const cards = new Carousel(res);
     return res;
   }).catch(error => {
     console.log("an error occured");

@@ -9,6 +9,7 @@ class Card {
     const element = document.createElement("div");
     const imgID = crypto.randomUUID();
     const image = new Image();
+    image.classList.add("img");
     image.src = cardInfo.img;
     image.style.animation = "none";
     image.style.backgroundSize = "cover";

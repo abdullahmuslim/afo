@@ -3,6 +3,7 @@ import Card from "./Card.js";
 class Cards {
   lists = [];
   constructor(cardsInfo){
+    console.log("info", cardsInfo);
     this.cardsInfo = cardsInfo;
     cardsInfo.map(info => {
       this.lists.push(new Card(info))

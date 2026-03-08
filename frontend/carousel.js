@@ -17,6 +17,7 @@ class Carousel {
     });
 
     this.#render();
+    this.#setEventHandlers();
     
   }
 
@@ -59,6 +60,28 @@ class Carousel {
       const span = document.createElement("span");
       indicators.appendChild(span);
     }
+  }
+
+  #setEventHandlers(){
+    const [prev, next] = [...document.querySelector(".carousel-buttons").children];
+    const handlePrev = () => this.prev();
+    const handleNext = () => this.next();
+    prev.addEventListener("click", handlePrev);
+    next.addEventListener("click", handleNext);
+    
+    const productActions = [...document.querySelectorAll(".productAction")];
+    const handleAction = e => {
+      const target = e.currentTarget;
+      const el = target.parentElement.children[1];
+      let text = el.textContent;
+      let message = `Hi, I would like to order ${text}`;
+      message = encodeURIComponent(message);
+      const url = `https://wa.me/2349034196928?text=${message}`;
+      window.location.href = url;
+    }
+
+    productActions.map( action => action.addEventListener("click", handleAction));
+
   }
   
   next(){
@@ -130,7 +153,7 @@ export class Card {
     elementStyle.left = `${(index < cuttoff+1) ? divisionMultiplier + (index * 25) : divisionMultiplier + (25 * (cuttoff - index))}%`;
 
     // hide excess
-    const display = `${(index <= cuttoff*2) ? "grid" : "none"}`;
+    const display = `${(index <= cuttoff*2) ? "flex" : "none"}`;
     elementStyle.display = display;
 
     // set sizing

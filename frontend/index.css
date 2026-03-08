@@ -4,6 +4,7 @@
   --primary-colour: #fffdfa;
   --secondary-colour: #154724;
   --accent-colour: #9fe644;
+  --gray: #a3a3a3;
 }
 
 * {
@@ -108,6 +109,28 @@ h1 {
   padding: 12px;
   gap: 16px;
 }
+
+.carousel-buttons {
+  position: relative;
+  top: 50%;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+}
+#carousel-prev, #carousel-next {
+  border: none;
+  padding: 4px;
+  border-radius: 50%;
+}
+#carousel-next {
+  transform: rotate(180deg);
+  position: absolute;
+  right: 0;
+}
+.carousel-buttons img {
+  width: 32px;
+}
+
 .card {
   position: absolute;
   border: 1px solid var(--accent-colour);
@@ -132,25 +155,28 @@ h1 {
   transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
 }
 
-.carousel-buttons {
-  position: relative;
-  top: 50%;
-  left: 0;
-  z-index: 2;
-  width: 100%;
-}
-#carousel-prev, #carousel-next {
-  border: none;
-  padding: 4px;
-  border-radius: 50%;
-}
-#carousel-next {
-  transform: rotate(180deg);
+.corner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   position: absolute;
-  right: 0;
+  top: 8px;
+  left: 0;
+  padding: 4px 20px 4px 8px;
+  background-color: rgba(159, 230, 68, 0.6);
+  backdrop-filter: blur(10px);
+  clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0 100%, 0 0);
+  font-weight: bold;
 }
-.carousel-buttons img {
-  width: 32px;
+
+.card .img{
+  display: inline-block;
+  grid-area: 1 / 1 / 3 / 3;
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, var(--secondary-colour), var(--primary-colour), var(--secondary-colour));
+ animation: loading 2s ease-in-out infinite alternate;
 }
 
 .indicators {
@@ -177,29 +203,7 @@ h1 {
   background-color: var(--accent-colour);
   /* transform: scale(1.5); */
 }
-.corner {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  position: absolute;
-  top: 8px;
-  left: 0;
-  padding: 4px 20px 4px 8px;
-  background-color: rgba(159, 230, 68, 0.6);
-  backdrop-filter: blur(10px);
-  clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0 100%, 0 0);
-  font-weight: bold;
-}
 
-.card .img{
-  display: inline-block;
-  grid-area: 1 / 1 / 3 / 3;
-  width: 100%;
-  aspect-ratio: 1;
-  background-size: 200% 100%;
-  background-image: linear-gradient(to right, var(--secondary-colour), var(--primary-colour), var(--secondary-colour));
- animation: loading 2s ease-in-out infinite alternate;
-}
 .productName {
   grid-area: 5 / 1 / 6 / 4;
 }
@@ -231,7 +235,7 @@ h1 {
   padding: 8px;
 }
 .review p {
-  color: #a3a3a3;
+  color: var(--gray);
   text-align: center;
   letter-spacing: 2;
   font-size: 28px;

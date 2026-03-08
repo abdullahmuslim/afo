@@ -27,8 +27,8 @@ class Carousel {
     container.innerHTML = `
       <div class="cards-holder"></div>
       <div class="carousel-buttons">
-        <button id="carousel-prev">prev</button>
-        <button id="carousel-next">next</button>
+        <button id="carousel-prev"><img src="./images/left.png" alt="prev" /></button>
+        <button id="carousel-next"><img src="./images/left.png" alt="next" /></button>
       </div>
       <div class="indicators"></div>
     `;

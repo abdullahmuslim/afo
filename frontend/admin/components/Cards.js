@@ -11,7 +11,7 @@ class Cards {
   }
   #render(){
     // Cards initialisation and addition to DOM
-    const container = document.querySelector("main");
+    const container = document.querySelector(".main");
     // set initial markup
     container.innerHTML = "";
     

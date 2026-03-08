@@ -39,7 +39,9 @@ header {
 .user img {
   width: 32px;
   height: 32px;
+  padding: 4px;
   border-radius: 50%;
+  background-color: var(--primary-colour);
 }
 .user span {
   display: none;
@@ -54,6 +56,12 @@ header {
 }
 
 main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+.main {
   display: flex;
   flex-flow: row wrap;
   padding: 8px;
@@ -112,7 +120,8 @@ aside form {
   align-items: center;
   border: 2px solid var(--gray);
   border-radius: 8px;
-  height: 200px;
+  width: 100%;
+  aspect-ratio: 1;
 }
 .imageInput span {
   font-weight: 700;
@@ -128,34 +137,40 @@ aside form {
   background-color: transparent;
 }
 .imgButton {
+  user-select: none;
   padding: 8px 16px;
   margin-left: auto;
   font-weight: 900;
 }
-.cardTitles {
-  display: flex;
+.cardTitles input {
   padding: 4px;
   border: 2px solid var(--gray);
   border-radius: 8px;
+  width: 100%;
 }
-.cardTitles input {
-  outline: var(--accent-colour);
+.cardTitles input:focus, .description:focus {
+  border: none;
+  outline: 2px solid var(--accent-colour);
 }
 .cardTitles input:first-child {
-  width: 40%;
-  margin-right: 4px;
-  border-right: 2px solid var(--gray);
+  width: 80%;
 }
 .description {
   padding: 4px;
   border: 2px solid var(--gray);
   border-radius: 8px;
 }
-button.submit {
+
+
+button.submit, button.reset{
+  user-select: none;
   padding: 8px 16px;
-  margin-right: auto;
   border-radius: 4px;
   font-weight: 900;
+}
+
+button.submit {
+  background-color: var(--accent-colour);
 }
 
 @keyframes loading {

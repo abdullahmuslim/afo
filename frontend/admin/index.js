@@ -1,24 +1,9 @@
 import Cards from "./components/Cards.js";
+import Form from "./components/Form.js";
+import fetchData from "./fetchData.js";
 
+fetchData();
 const fetchedData = [
-  {
-    img: "../img2.png",
-    corner: "20% off",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
-  },
-  {
-    img: "./images/ps5.png",
-    corner: "",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
-  },
-  {
-    img: "./images/jblcharge6.png",
-    corner: "20% off more",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
-  },
   {
     img: "./images/img2.png",
     corner: "20% off",
@@ -26,55 +11,48 @@ const fetchedData = [
     description: "Don't just record your life - capture it in cinematic quality",
   },
   {
+    img: "./images/ps5.png",
+    corner: "",
+    name: "Sony Slim Playstation 5",
+    description: "All the power of the original PS5, now 30% smaller with a 1TB SSD",
+  },
+  {
+    img: "./images/jblcharge6.png",
+    corner: "",
+    name: "JBL Charge6",
+    description: "Bold JBL Pro Sound and a built-in power bank—now with 28 hours of playtime and IP68 durability.",
+  },
+  {
+    img: "./images/img1.png",
+    corner: "limited",
+    name: "Dual Wireless Charging Pad ",
+    description: "Sleek, low-profile pad, eliminates cable clutter. Charge your phone and earbuds simultaneously.",
+  },
+  {
     img: "./images/oraimospeaker.png",
-    corner: "20% off",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
+    corner: "limited",
+    name: "Oraimo SpaceBox OBS-382",
+    description: "Immersive 10W stereo sound and dynamic RGB lights in a sleek, portable design.",
   },
   {
     img: "./images/img3.png",
-    corner: "20% off",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
+    corner: "",
+    name: "Foldable Phone Grip and Stand",
+    description: "a modern aluminium phone stand",
   },
   {
     img: "./images/opensnap.png",
-    corner: "20% off",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
+    corner: "flash sale",
+    name: "Oraimo Earbuds OpenSnap Wireless Open Ear",
+    description: "Secure, open-ear comfort with powerful bass and total environmental awareness.",
   },
   {
     img: "./images/redmibuds6.png",
-    corner: "20% off",
-    name: "Mobile Gimbal Stabilizer",
-    description: "Don't just record your life - capture it in cinematic quality",
+    corner: "limited",
+    name: "Redmi Buds 6 Play",
+    description: "Powerful 10mm bass and 36-hour total playtime in a super-lightweight design.",
   },
   
 ];
 const cards = new Cards(fetchedData);
-
-const pickFile = (e) => {
-  const el = e.currentTarget;
-  const image = el.files[0];
-  const imageURL = URL.createObjectURL(image);
-  const uncompressedImg = new Image();
-  uncompressedImg.src = imageURL;
-  
-  const uploadedImage = document.querySelector(".uploadedImage");
-  uploadedImage.style.backgroundImage = `url(${imageURL})`;
-  uploadedImage.style.backgroundSize = "cover";
-  
-  uncompressedImg.onload = () => {
-    // image compression using HTML canvas
-    const canvas = document.createElement('canvas');
-    const ctx = canvas.getContext("2d");
-    canvas.width = uncompressedImg.naturalWidth;
-    canvas.height = uncompressedImg.naturalHeight;
-    ctx.drawImage(uncompressedImg,  0, 0);
-    let source = canvas.toDataURL("image/webp", 0.75);
-    source = source.replace("data:image/webp;base64,", "");
-    // const data = new FormData();
-  }
-}
-const filePicker = document.querySelector(".filePicker");
-filePicker.addEventListener("change", pickFile);
+const form = new Form();

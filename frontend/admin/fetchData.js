@@ -5,10 +5,14 @@ const authEndpoint = "/api/auth/local"
 let token = "";
 
 const authorize = () => {
-  fetch(host+endpoint, {
-    "identifier": "muslimabdullah925@gmail.com",
-    "password": "PA#w0rd1",
-  }).then(response => response.json).then(res => {
+  const payload = {
+      "identifier": "thewebs",
+      "password": "Testing123...",
+  }
+  fetch(host+authEndpoint, {
+    method: "POST",
+    body: JSON.stringify(payload),
+  }).then(response => response.json()).then(res => {
     token = res.jwt;
   });
 }

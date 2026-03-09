@@ -55,13 +55,14 @@ export const dummyData = [
 ];
 
 async function fetchData(endpoint){
-  fetch(`${host+endpoint}?populate=*`).then( res => {
+  fetch(`${host+endpoint}?populate=image`).then( res => {
     return res.json();
   }).then(res => {
     res = res.data.map(eachRes => {
       return {...eachRes, img: host + eachRes.image[0].url}
     });
     
+    console.log(res);
     const cards = new Carousel(res);
     return res;
   }).catch(error => {

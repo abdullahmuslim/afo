@@ -17,7 +17,7 @@ class Carousel {
     });
 
     this.#render();
-    this.#setEventHandlers();
+    this.#setHandlers();
     
   }
 
@@ -62,12 +62,24 @@ class Carousel {
     }
   }
 
-  #setEventHandlers(){
+  #setHandlers(){
     const [prev, next] = [...document.querySelector(".carousel-buttons").children];
     const handlePrev = () => this.prev();
     const handleNext = () => this.next();
     prev.addEventListener("click", handlePrev);
     next.addEventListener("click", handleNext);
+
+    const images = [...document.querySelectorAll(".card .img")];
+images.map( img => {
+      const src = img.getAttribute("img");
+      const image = new Image();
+      image.src = src;
+      image.onload = () => {
+        img.src = src;
+        img.style.animation = "none";
+        img.style.backgroundSize = "cover";
+      }
+    });
     
     const productActions = [...document.querySelectorAll(".productAction")];
     const handleAction = e => {

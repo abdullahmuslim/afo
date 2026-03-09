@@ -1,7 +1,17 @@
 import Cards from "./components/Cards.js";
 
 const host = "http://localhost:1337";
-const token = "jwtstyletomen";
+const authEndpoint = "/api/auth/local"
+let token = "";
+
+const authorize = () => {
+  fetch(host+endpoint, {
+    "identifier": "muslimabdullah925@gmail.com",
+    "password": "PA#w0rd1",
+  }).then(response => response.json).then(res => {
+    token = res.jwt;
+  });
+}
 
 export const dummyData = [
   {
@@ -65,12 +75,15 @@ export const dummyData = [
 
 export async function putData(endpoint, data) {
   const url = host + endpoint;
+  if (token === ""){
+    authorize();
+  }
   try{
     const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `jwt ${token}>` // If needed
+        "Authorization": `Bearer ${token}>`
       },
       body: JSON.stringify({ data: data }),
     });
@@ -85,11 +98,14 @@ export async function putData(endpoint, data) {
 
 export async function putImage(endpoint, formData) {
   const url = host + endpoint;
+  if (token === ""){
+    authorize();
+  }
   try{
     const response = await fetch(url, {
-      method: "POST",
+      method: "PUT",
       headers: {
-        "Authorization": `jwt ${token}>` // If needed
+        "Authorization": `Bearer ${token}>`
       },
       body: formData,
     });
@@ -108,7 +124,8 @@ async function fetchData(endpoint){
     if (!response.ok){
       throw new Error("HTTP error: " + response.status);
     }
-    const data = response.json().data.map(eachRes => {
+    let data = await response.json()
+    data = data.data.map(eachRes => {
       return {...eachRes, img: host + eachRes.image[0].url}
     });
     const cards = new Cards(data);

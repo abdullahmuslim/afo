@@ -17,15 +17,3 @@ logo.onload = () => {
   loadAnime.style.display = "none";
   loadAnime.parentElement.appendChild(logo);
 }
-
-const images = [...document.querySelectorAll(".card .img")];
-images.map( img => {
-  const src = img.getAttribute("img");
-  const image = new Image();
-  image.src = src;
-  image.onload = () => {
-    img.src = src;
-    img.style.animation = "none";
-    img.style.backgroundSize = "cover";
-  }
-});

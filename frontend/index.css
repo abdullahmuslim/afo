@@ -203,6 +203,7 @@ h1 {
 }
 
 .productName {
+  align-self: flex-start;
   margin-bottom: 20px;
 }
 .productDesc {
@@ -224,7 +225,7 @@ h1 {
   display: flex;
   overflow-x: scroll;
   padding: 12px;
-  margin-top: 64px;
+  margin-block: 64px;
 }
 .review {
   display: flex;

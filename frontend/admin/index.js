@@ -5,5 +5,5 @@ import fetchData, {dummyData} from "./fetchData.js";
 const endpoint = "/api/products";
 
 const cards = new Cards(dummyData);
-const fetchedData = fetchData(endpoint);
+fetchData(endpoint);
 const form = new Form();

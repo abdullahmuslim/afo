@@ -1,15 +1,14 @@
-import { putData, putImage } from "../fetchData.js";
+import { postData, putData, putImage } from "../fetchData.js";
 
 class Form {
   constructor(
     data={
-      id: "",
       img: "",
       name: "",
       description: "",
-  }){
+    }){
     const form = document.querySelector("form");
-    form.dataset.id = data.id;
+    form.dataset.documentID = data.documentId;
     form.innerHTML = `
     <div class="cardTitles">
       <input type="text" name="name" id="" value="${data.name}" placeholder="product name" required />
@@ -47,16 +46,6 @@ class Form {
         uploadedImage.replaceWith(newUploadedImage);
         newUploadedImage.outerHTML = `<p class="uploadedImage" style="background-image: url('${imageURL}'); background-size: cover;"></p>`;
         
-        // image compression using HTML canvas
-        /* const canvas = document.createElement('canvas');
-        const ctx = canvas.getContext("2d");
-        canvas.width = uncompressedImg.naturalWidth;
-        canvas.height = uncompressedImg.naturalHeight;
-        ctx.drawImage(uncompressedImg,  0, 0);
-        let source = canvas.toDataURL("image/webp", 0.75);
-        source = source.replace("data:image/webp;base64,", "");
-        */
-        // const data = new FormData();
       }
     }
     const filePicker = document.querySelector(".filePicker");
@@ -71,27 +60,33 @@ class Form {
     
     // submit button handler
     const form = this.el;
-    // document.querySelector("form");
-    const verify = (event) => {
+    const verify = async (event) => {
       event.preventDefault();
       const form = event.currentTarget;
       const formData = new FormData(form);
-      formData.append("id", form.dataset.id);
       const data = Object.fromEntries(formData.entries())
-      
+
       const image = data.image;
       delete data.image;
-      console.log("validating...", data, image);
-      if (image.name !== ""){
-        const uploadResponse = putData("/api/upload", data);
+
+      if (image){
+        //determine to update or upload
+        let uploadResponse;
+        const id = form.dataset.documentID;
+        if (form.dataset.documentID) {
+          uploadResponse = await putData(`/api/products/${id}`, data);
+        } else {
+          uploadResponse = await postData("/api/products", data);
+        }
+        console.log(uploadResponse);
         const imageData = new FormData();
         imageData.append("files", image);
         imageData.append('ref', 'api::product.product'); // Collection UID
-        imageData.append('refId', uploadResponse);                  // Entry ID
+        imageData.append('refId', uploadResponse.data.id);                  // Entry ID
         imageData.append('field', 'image');
-        const imageUploadResponse = putImage("/api/upload", imageData);
+        const imageUploadResponse = await putImage("/api/upload", imageData);
         if (imageUploadResponse) {
-          clearForm();
+          // clearForm();
         }
       }
       // uploading data

@@ -1,9 +1,7 @@
-import Cards from "./components/Cards.js";
 import Form from "./components/Form.js";
-import fetchData, {dummyData} from "./fetchData.js";
+import fetchData from "./fetchData.js";
 
 const endpoint = "/api/products";
 
-const cards = new Cards(dummyData);
 fetchData(endpoint);
 const form = new Form();

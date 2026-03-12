@@ -1,20 +1,34 @@
 import Cards from "./components/Cards.js";
 
 const host = "http://localhost:1337";
-const authEndpoint = "/api/auth/local"
-let token = "";
+const authEndpoint = "/api/auth/local";
 
-const authorize = () => {
+let authToken = null;
+
+async function authorize() {
   const payload = {
-      "identifier": "thewebs",
-      "password": "Testing123...",
+    identifier: "tester",
+    password: "Testing123..."
   }
-  fetch(host+authEndpoint, {
+
+  const reponse = await fetch(host + authEndpoint, {
     method: "POST",
-    body: JSON.stringify(payload),
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
   }).then(response => response.json()).then(res => {
-    token = res.jwt;
+    return res.jwt;
   });
+  return reponse;
+}
+
+async function getToken() {
+  if (!authToken) {
+    authToken = await authorize();
+  }
+  console.log(authToken);
+  return authToken;
 }
 
 export const dummyData = [
@@ -74,63 +88,83 @@ export const dummyData = [
     name: "Redmi Buds 6 Play",
     description: "Powerful 10mm bass and 36-hour total playtime in a super-lightweight design.",
   },
-  
+
 ];
 
-export async function putData(endpoint, data) {
+export async function postData(endpoint, productData) {
   const url = host + endpoint;
-  if (token === ""){
-    authorize();
-  }
-  try{
+  const token = await getToken();
+  try {
     const response = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}>`
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
       },
-      body: JSON.stringify({ data: data }),
+      body: JSON.stringify({ data: productData }),
     });
-    if (!response.ok){
+    if (!response.ok) {
       throw new Error("HTTP Error: " + response.status);
     }
-    return response.json();
-  } catch(error){
+    return await response.json();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+
+export async function putData(endpoint, productData) {
+  const url = host + endpoint;
+  const token = await getToken();
+  try {
+    let response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ data: productData }),
+    });
+    if (!response.ok) {
+      throw new Error("HTTP Error: " + response.status);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
     console.error(error);
   }
 }
 
 export async function putImage(endpoint, formData) {
   const url = host + endpoint;
-  if (token === ""){
-    authorize();
-  }
-  try{
+  const token = await getToken();
+  try {
     const response = await fetch(url, {
-      method: "PUT",
+      method: "POST",
       headers: {
-        "Authorization": `Bearer ${token}>`
+        "Authorization": `Bearer ${token}`
       },
       body: formData,
     });
-    if (!response.ok){
+    if (!response.ok) {
       throw new Error("HTTP Error: " + response.status);
     }
-    return response.json();
-  } catch(error){
+    const data = response.json();
+    return data;
+  } catch (error) {
     console.error(error);
   }
 }
 
-async function fetchData(endpoint){
+async function fetchData(endpoint) {
   try {
-    const response = await fetch(`${host+endpoint}?populate=image`);
-    if (!response.ok){
+    const response = await fetch(`${host + endpoint}?populate=image`);
+    if (!response.ok) {
       throw new Error("HTTP error: " + response.status);
     }
     let data = await response.json()
     data = data.data.map(eachRes => {
-      return {...eachRes, img: host + eachRes.image[0].url}
+      return { ...eachRes, img: eachRes.image && host + eachRes.image[0].url }
     });
     const cards = new Cards(data);
     return data;

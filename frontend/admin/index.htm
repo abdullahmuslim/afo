@@ -23,21 +23,35 @@
         </main>
         <aside>
           <form>
-            <label class="imageInput" for="filePicker">
-              <p>click <span>here</span> to add an image from your device</p>
-              <input class="filePicker" type="file" name="" id="filePicker" accept="image/*" alt="" />
-              <p class="uploadedImage"></p>
-            </label>
-            <button class="imgButton" type="button">upload</button>
             <div class="cardTitles">
-              <input type="text" name="" id="" value="" placeholder="product name" />
-              <input type="text" name="" id="" value="" placeholder="write short and attention sparking description" />
+              <div class="name">
+                <input type="text" name="name" id="" value="" placeholder="product name*" required />
+                <span class="instruction"></span>
+              </div>
+              <div class="label">
+                <input type="text" name="corner" id="" value="" placeholder="product label" />
+              </div>
+              <div>
+                <input type="text" name="description" id="" value="" placeholder="write short and attention sparking description*" required />
+                <span class="instruction"></span>
+              </div>
+              <div class="imageInput">
+                <ig class="resetImage" width="32" src="../avatar.png" />
+                <p class="imageInfo">select an image</p>
+                <label for="filePicker" class="upload">
+                    <img width="20" src="../avatar.png" />
+                    upload
+                </label>
+                <input class="filePicker" type="file" name="image" id="filePicker" accept="image/*" alt="" required />
+                
+                <p class="uploadedImage"></p>
+              </div>
+              <textarea class="specification" name="specification" id="" placeholder="enter full spec details here" rows="8" cols="40"></textarea>
+              <div class="button">
+                <button class="reset" type="reset">clear edit</button>
+                <button class="submit" type="submit">add product</button>
+              </div>
             </div>
-            <textarea class="description" name="" id="" placeholder="enter full spec details here" rows="8" cols="40"></textarea>
-            <fieldset>
-              <button class="reset" type="reset">clear edit</button>
-              <button class="submit" type="submit">add</button>
-            </fieldset>
           </form>
         </aside>
       </div>

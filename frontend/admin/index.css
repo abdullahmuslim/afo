@@ -116,12 +116,14 @@ aside form {
   position: relative;
   cursor: pointer;
   display: flex;
-  justify-content: center;
+  flex-direction: row;
+  justify-content: space-between;
   align-items: center;
   border: 2px solid var(--gray);
-  border-radius: 8px;
+  /* border-radius: 8px; */
+  padding: 8px;
   width: 100%;
-  aspect-ratio: 1;
+  color: var(--gray);
 }
 .imageInput span {
   font-weight: 700;
@@ -130,39 +132,57 @@ aside form {
 .filePicker {
   display: none;
 }
+.imageInput .upload {
+  background-color: ButtonFace;
+  display: flex;
+}
 .uploadedImage {
+  display: none;
   position: absolute;
   width: 100%;
   height: 100%;
   background-color: transparent;
 }
-.imgButton {
-  user-select: none;
-  padding: 8px 16px;
-  margin-left: auto;
-  font-weight: 900;
+
+.cardTitles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  row-gap: 32px;
 }
-.cardTitles input {
-  padding: 4px;
-  border: 2px solid var(--gray);
-  border-radius: 8px;
+
+.cardTitles > * {
   width: 100%;
 }
-.cardTitles input:focus, .description:focus {
-  border: none;
-  outline: 2px solid var(--accent-colour);
-}
-.cardTitles input:first-child {
-  width: 80%;
-}
-.description {
+.cardTitles input {
+  width: 100%;
+  height: 3em;
   padding: 4px;
   border: 2px solid var(--gray);
-  border-radius: 8px;
+  /* border-radius: 8px; */
+}
+.cardTitles input:focus, .description:focus {
+  border: 2px solid var(--accent-colour);
+}
+.cardTitles .name {
+  width: 65%;
+  margin-right: 12px;
+}
+.cardTitles .label {
+  width: calc(35% - 12px);
+}
+.cardTitles .specification {
+  padding: 4px;
+  border: 2px solid var(--gray);
+  /* border-radius: 8px; */
 }
 
-
-button.submit, button.reset{
+.button {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 12px;
+}
+button.submit, button.reset, .imageInput .upload {
   user-select: none;
   padding: 8px 16px;
   border-radius: 4px;

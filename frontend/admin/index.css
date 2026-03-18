@@ -120,7 +120,6 @@ aside form {
   justify-content: space-between;
   align-items: center;
   border: 2px solid var(--gray);
-  /* border-radius: 8px; */
   padding: 8px;
   width: 100%;
   color: var(--gray);
@@ -130,6 +129,9 @@ aside form {
   color: var(--accent-colour);
 }
 .filePicker {
+  display: none;
+}
+.resetImage {
   display: none;
 }
 .imageInput .upload {

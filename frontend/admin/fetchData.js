@@ -27,7 +27,6 @@ async function getToken() {
   if (!authToken) {
     authToken = await authorize();
   }
-  console.log(authToken);
   return authToken;
 }
 
@@ -156,17 +155,35 @@ export async function putImage(endpoint, formData) {
   }
 }
 
+export async function deleteItem(endpoint) {
+  const url = host + endpoint;
+  const token = await getToken();
+  try {
+    const response = fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+  } catch (error) {
+    console.error(error.message);
+  }
+}
+
 async function fetchData(endpoint) {
   try {
     const response = await fetch(`${host + endpoint}?populate=image`);
     if (!response.ok) {
       throw new Error("HTTP error: " + response.status);
     }
-    let data = await response.json()
+    let data = await response.json();
     data = data.data.map(eachRes => {
-      return { ...eachRes, img: eachRes.image && host + eachRes.image[0].url }
+      return {
+        ...eachRes,
+        img: eachRes.image && host + eachRes.image[0].url,
+        imgId: eachRes.image && eachRes.image[0].id
+      }
     });
-    const cards = new Cards(data);
     return data;
   } catch (e) {
     console.error(e.message);

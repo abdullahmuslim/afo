@@ -62,7 +62,6 @@ async function fetchData(endpoint){
       return {...eachRes, img: host + eachRes.image[0].url}
     });
     
-    console.log(res);
     const cards = new Carousel(res);
     return res;
   }).catch(error => {

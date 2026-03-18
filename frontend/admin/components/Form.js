@@ -1,14 +1,19 @@
-import { postData, putData, putImage } from "../fetchData.js";
+import { deleteItem, postData, putData, putImage } from "../fetchData.js";
 
 class Form {
   constructor(
-    data={
+    data = {
       img: "",
+      imgId: "",
       name: "",
+      documentId: "",
       description: "",
-    }){
+    }
+  ) {
     const form = document.querySelector("form");
-    form.dataset.documentID = data.documentId;
+    form.dataset.documentId = data.documentId || "";
+    form.dataset.imgId = data.imgId || "";
+
     form.innerHTML = `
     <div class="cardTitles">
       <div class="name">
@@ -23,13 +28,13 @@ class Form {
         <span class="instruction"></span>
       </div>
       <div class="imageInput">
-        <ig class="resetImage" width="32" src="../avatar.png" />
-        <p class="imageInfo">select an image</p>
+        <img class="resetImage" width="32" src="./avatar.png" />
+        <p class="imageInfo">${data.img || "select an image"}</p>
         <label for="filePicker" class="upload">
-            <img width="20" src="../avatar.png" />
-            upload
+          <img width="20" src="./avatar.png" />
+          upload
         </label>
-        <input class="filePicker" type="file" name="image" id="filePicker" accept="image/*" alt="" required />
+        <input class="filePicker" type="file" name="image" id="filePicker" accept="image/*" alt="" />
         
         <p class="uploadedImage" style="background-image: url('${data.img}'); background-size: cover;"></p>
       </div>
@@ -41,11 +46,11 @@ class Form {
     </div>
     `;
     this.el = form;
-    
+
     this.setEventHandlers();
   }
-  setEventHandlers(){
-    
+  setEventHandlers() {
+
     // image picker handler
     const pickFile = (e) => {
       const el = e.currentTarget;
@@ -53,7 +58,7 @@ class Form {
       const imageURL = URL.createObjectURL(image);
       const uncompressedImg = new Image();
       uncompressedImg.src = imageURL;
-      
+
       uncompressedImg.onload = () => {
         const newUploadedImage = document.createElement("p");
         const uploadedImage = document.querySelector(".uploadedImage");
@@ -62,52 +67,72 @@ class Form {
         const imageInfo = document.querySelector(".imageInfo");
         imageInfo.textContent = image.name;
         const date = image.lastModifiedDate;
-        console.log(`${date.getDate()} ${date.getDay()}, ${date.getYear()}`);
       }
     }
     const filePicker = document.querySelector(".filePicker");
     filePicker.addEventListener("change", pickFile);
-    
+
     // clear button handler
     const clear = document.querySelector("form button[type='reset']");
     const clearForm = () => {
-      new Form();
+      const form = new Form();
     }
     clear.addEventListener("click", clearForm);
-    
+
     // submit button handler
     const form = this.el;
+
     const verify = async (event) => {
       event.preventDefault();
+      event.stopPropagation();
+      
+      // verified input values
+      const verified = true;
+      
+      // extract data
       const form = event.currentTarget;
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries())
 
-      const image = data.image;
-      delete data.image;
+      const url = document.querySelector(".imageInfo").textContent;
+      let image;
+      if (url.startsWith("http")) {
+        const response = await fetch(url);
+        const result = await response.blob();
+        console.log(result);
+        image = new File([result], 'randomlygenerated.jpg');
+      } else {
+        image = data.image;
+      }
+      const deleted = delete data.image;
 
-      if (image){
-        //determine to update or upload
+      if (verified) {
+        //determine to update or upload entries
+        const id = form.dataset.documentId;
         let uploadResponse;
-        const id = form.dataset.documentID;
-        if (form.dataset.documentID) {
+        if (id) {
           uploadResponse = await putData(`/api/products/${id}`, data);
         } else {
           uploadResponse = await postData("/api/products", data);
         }
-        console.log(uploadResponse);
         const imageData = new FormData();
         imageData.append("files", image);
         imageData.append('ref', 'api::product.product'); // Collection UID
-        imageData.append('refId', uploadResponse.data.id);                  // Entry ID
+        imageData.append('refId', uploadResponse.data.id); // Entry ID
         imageData.append('field', 'image');
+        const imgId = form.dataset.imgId;
+        // delete old image
+        if (imgId) deleteItem(`/api/upload?=${imgId}`);
+
+        // upload new image
         const imageUploadResponse = await putImage("/api/upload", imageData);
         if (imageUploadResponse) {
+          // console.log(imageUploadResponse);
           // clearForm();
         }
       }
       // uploading data
-      
+
     }
     form.addEventListener("submit", verify);
   }

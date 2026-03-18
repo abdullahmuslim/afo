@@ -170,7 +170,6 @@ export class Card {
 
     // set sizing
     const size = (index <= cuttoff) ? Math.abs(1 - (index*0.3)) : Math.abs((1 - (index - cuttoff)*0.3));
-    // console.log(index, zIndex, size);
     elementStyle.transform = `translate(-50%, 0%) scale(${size})`;
 
   }

@@ -96,10 +96,11 @@ class Form {
 
       const url = document.querySelector(".imageInfo").textContent;
       let image;
+      
+      // get image data
       if (url.startsWith("http")) {
         const response = await fetch(url);
         const result = await response.blob();
-        console.log(result);
         image = new File([result], 'randomlygenerated.jpg');
       } else {
         image = data.image;
@@ -121,17 +122,18 @@ class Form {
         imageData.append('refId', uploadResponse.data.id); // Entry ID
         imageData.append('field', 'image');
         const imgId = form.dataset.imgId;
+        console.log(imgId);
+
         // delete old image
-        if (imgId) deleteItem(`/api/upload?=${imgId}`);
+        // if (imgId) await deleteItem(`/api/upload/files/${imgId}`);// currently problematic 
 
         // upload new image
         const imageUploadResponse = await putImage("/api/upload", imageData);
         if (imageUploadResponse) {
-          // console.log(imageUploadResponse);
+          console.log("image upload res", imageUploadResponse);
           // clearForm();
         }
       }
-      // uploading data
 
     }
     form.addEventListener("submit", verify);

@@ -41,10 +41,11 @@ class Card {
   }
 
   async deleteProduct(e) {
+    e.stopPropagation();
     const product = e.currentTarget.parentElement;
     const cardInfo = JSON.parse(product.dataset.cardInfo);
     const imgId = cardInfo.imgId;
-    if (imgId) await deleteItem(`/api/upload?=${imgId}`);
+    if (imgId) await deleteItem(`/api/upload/files/${imgId}`);
     await deleteItem(`/api/products/${cardInfo.documentId}`)
   }
 }

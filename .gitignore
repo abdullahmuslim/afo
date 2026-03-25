@@ -1,2 +1,5 @@
 # ignore my backend code
 backend/
+
+# ignore editor specific configuration
+.vscode/

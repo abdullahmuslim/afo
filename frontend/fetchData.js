@@ -65,7 +65,7 @@ async function fetchData(endpoint){
     const cards = new Carousel(res);
     return res;
   }).catch(error => {
-    console.log("an error occured");
+    console.error(error);
   });
 }
 

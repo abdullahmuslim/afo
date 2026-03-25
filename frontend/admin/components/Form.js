@@ -1,20 +1,26 @@
-import { deleteItem, postData, putData, putImage } from "../fetchData.js";
+import fetchData, { deleteItem, getImage, postData, putData, putImage } from "../fetchData.js";
+import Cards from "./Cards.js";
 
 class Form {
   constructor(
     data = {
       img: "",
       imgId: "",
+      imgDocId: "",
       name: "",
       documentId: "",
       description: "",
     }
   ) {
-    const form = document.querySelector("form");
-    form.dataset.documentId = data.documentId || "";
-    form.dataset.imgId = data.imgId || "";
+    this.data = data;
+    const oldForm = document.querySelector("form");
+    const newForm = document.createElement("form");
+    
+    // newForm.dataset.documentId = data.documentId || "";
+    // newForm.dataset.imgId = data.imgId || "";
+    // newForm.dataset.imgDocId = data.imgDocId || "";
 
-    form.innerHTML = `
+    newForm.innerHTML = `
     <div class="cardTitles">
       <div class="name">
         <input type="text" name="name" id="" value="${data.name}" placeholder="product name*" required />
@@ -45,7 +51,8 @@ class Form {
       </div>
     </div>
     `;
-    this.el = form;
+    oldForm.replaceWith(newForm);
+    this.el = newForm;
 
     this.setEventHandlers();
   }
@@ -70,6 +77,7 @@ class Form {
       }
     }
     const filePicker = document.querySelector(".filePicker");
+    filePicker.removeEventListener("change", pickFile);
     filePicker.addEventListener("change", pickFile);
 
     // clear button handler
@@ -77,6 +85,7 @@ class Form {
     const clearForm = () => {
       const form = new Form();
     }
+    clear.removeEventListener("click", clearForm);
     clear.addEventListener("click", clearForm);
 
     // submit button handler
@@ -85,6 +94,7 @@ class Form {
     const verify = async (event) => {
       event.preventDefault();
       event.stopPropagation();
+      const cardInfo = this.data;
       
       // verified input values
       const verified = true;
@@ -94,14 +104,14 @@ class Form {
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries())
 
-      const url = document.querySelector(".imageInfo").textContent;
+      const placeholder = document.querySelector(".imageInfo").textContent;
       let image;
       
       // get image data
-      if (url.startsWith("http")) {
-        const response = await fetch(url);
+      if (placeholder.startsWith("http")) {
+        const response = await fetch(placeholder);
         const result = await response.blob();
-        image = new File([result], 'randomlygenerated.jpg');
+        image = new File([result], cardInfo.imgName);
       } else {
         image = data.image;
       }
@@ -109,7 +119,7 @@ class Form {
 
       if (verified) {
         //determine to update or upload entries
-        const id = form.dataset.documentId;
+        const id = cardInfo.documentId;
         let uploadResponse;
         if (id) {
           uploadResponse = await putData(`/api/products/${id}`, data);
@@ -121,21 +131,24 @@ class Form {
         imageData.append('ref', 'api::product.product'); // Collection UID
         imageData.append('refId', uploadResponse.data.id); // Entry ID
         imageData.append('field', 'image');
-        const imgId = form.dataset.imgId;
-        console.log(imgId);
+        const imgId = cardInfo.imgId;
 
+        
         // delete old image
-        // if (imgId) await deleteItem(`/api/upload/files/${imgId}`);// currently problematic 
-
+        if (imgId) { 
+          await deleteItem(`/api/upload/files/${imgId}`);
+        }
         // upload new image
         const imageUploadResponse = await putImage("/api/upload", imageData);
         if (imageUploadResponse) {
-          console.log("image upload res", imageUploadResponse);
-          // clearForm();
+          clearForm();
+          const data = await fetchData("/api/products");
+          const cards = new Cards(data);
         }
       }
 
     }
+    form.removeEventListener("submit", verify);
     form.addEventListener("submit", verify);
   }
 }

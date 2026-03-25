@@ -122,7 +122,8 @@ images.map( img => {
     this.cards.map(card => card.el.classList.remove("active"));
     this.cards[0].el.classList.add("active");
     
-    activeIndex = (activeIndex > this.#maxCard) ? activeIndex - (this.#maxCard+1) : activeIndex;
+    const cardsNum = container.children.length / 2;
+    activeIndex = (activeIndex > cardsNum) ? activeIndex - (cardsNum) : activeIndex;
     
     indicators.map((indicator, index) => {
       indicator.classList.remove("active");

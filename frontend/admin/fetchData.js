@@ -181,12 +181,28 @@ async function fetchData(endpoint) {
       return {
         ...eachRes,
         img: eachRes.image && host + eachRes.image[0].url,
-        imgId: eachRes.image && eachRes.image[0].id
+        imgId: eachRes.image && eachRes.image[0].id,
+        imgName:  eachRes.image && eachRes.image[0].name
       }
     });
     return data;
   } catch (e) {
     console.error(e.message);
+  }
+}
+
+export async function getImage(endpoint) {
+  const url = host + endpoint;
+  const token = await getToken();
+  try {
+    const response = fetch(url, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${token}`
+      }
+    })
+  } catch (error) {
+    console.error(error.message);
   }
 }
 

@@ -55,8 +55,9 @@ class Carousel {
   }
   
   #generateIndicator(){
+    const cardsLength = this.cards.length / 2;
     const indicators = document.querySelector(".indicators");
-    for (let i = 0; i < this.#maxCard; i++){
+    for (let i = 0; i < cardsLength; i++){
       const span = document.createElement("span");
       indicators.appendChild(span);
     }
@@ -122,8 +123,8 @@ images.map( img => {
     this.cards.map(card => card.el.classList.remove("active"));
     this.cards[0].el.classList.add("active");
     
-    const cardsNum = container.children.length / 2;
-    activeIndex = (activeIndex > cardsNum) ? activeIndex - (cardsNum) : activeIndex;
+    const cardsLength = container.children.length / 2;
+    activeIndex = (activeIndex > cardsLength - 1) ? activeIndex - (cardsLength) : activeIndex;
     
     indicators.map((indicator, index) => {
       indicator.classList.remove("active");

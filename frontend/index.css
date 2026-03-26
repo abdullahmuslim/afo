@@ -121,6 +121,7 @@ h1 {
   border: none;
   padding: 4px;
   border-radius: 50%;
+  background-color: transparent;
 }
 #carousel-next {
   transform: rotate(180deg);

@@ -3,6 +3,7 @@
   --secondary-colour: #154724;
   --accent-colour: #9fe644;
   --gray: #a3a3a3;
+  --danger: #F08080;
 }
 
 * {
@@ -100,11 +101,26 @@ main {
  animation: loading 2s ease-in-out infinite alternate;
 }
 
+.productAction {
+  align-self: flex-end;
+  padding: 8px 16px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background-color: ButtonFace;
+  font-weight: 900;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.productAction:hover {
+  background-color: var(--danger);
+}
+
 aside {
   display: flex;
   justify-content: center;
   align-items: start;
-  max-width: 350px;
+  max-width: 100vw;
   padding: 12px;
 }
 aside form {
@@ -121,8 +137,12 @@ aside form {
   align-items: center;
   border: 2px solid var(--gray);
   padding: 8px;
-  width: 100%;
+  max-width: 100%;
   color: var(--gray);
+}
+.imageInput .imageInfo {
+  white-space: nowrap;
+  overflow-x: hidden;
 }
 .imageInput span {
   font-weight: 700;
@@ -161,10 +181,16 @@ aside form {
   height: 3em;
   padding: 4px;
   border: 2px solid var(--gray);
+  cursor: pointer;
   /* border-radius: 8px; */
 }
 .cardTitles input:focus, .description:focus {
   border: 2px solid var(--accent-colour);
+}
+.cardTitles input::placeholder, .specification::placeholder, .cardTitles .imageInfo {
+  color: var(--gray);
+  font-size: 12px;
+  word-spacing: 2px;
 }
 .cardTitles .name {
   width: 65%;
@@ -176,6 +202,7 @@ aside form {
 .cardTitles .specification {
   padding: 4px;
   border: 2px solid var(--gray);
+  cursor: pointer;
   /* border-radius: 8px; */
 }
 
@@ -183,6 +210,7 @@ aside form {
   display: flex;
   justify-content: flex-end;
   column-gap: 12px;
+  cursor: pointer;
 }
 button.submit, button.reset, .imageInput .upload {
   user-select: none;
@@ -207,6 +235,9 @@ button.submit {
 @media screen and (min-width: 768px) {
   .bodyContent {
     flex-direction: row;
+  }
+  aside {
+    max-width: 350px;
   }
 }
 

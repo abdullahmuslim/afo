@@ -44,7 +44,7 @@ class Form {
         
         <p class="uploadedImage" style="background-image: url('${data.img}'); background-size: cover;"></p>
       </div>
-      <textarea class="specification" name="specification" id="" placeholder="enter specifications" rows="8" cols="40" disabled ></textarea>
+      <textarea class="specification" name="specification" id="" value="${data.specification || ''}" placeholder="enter specifications" rows="8" cols="40" ></textarea>
       <div class="button">
         <button class="reset" type="reset">clear edit</button>
         <button class="submit" type="submit">add product</button>

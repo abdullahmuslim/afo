@@ -1,9 +1,8 @@
 import Carousel, {Card} from "./carousel.js";
-import fetchData, { dummyData } from "./fetchData.js"
+import fetchData from "./fetchData.js"
 
 
 const endpoint = "/api/products";
-const carousel = new Carousel(dummyData);
 const fetchedData = fetchData(endpoint);
 
 const main = document.querySelector(".hero");

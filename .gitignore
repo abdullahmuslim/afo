@@ -3,3 +3,6 @@ backend/
 
 # ignore editor specific configuration
 .vscode/
+
+# ignore frontend node modules
+frontend/node_modules/

@@ -225,9 +225,8 @@ h1 {
 .reviews {
   display: grid;
   grid-template-rows: auto;
-  grid-template-columns: minmax(500px, 80vw);
+  grid-template-columns: auto;
   grid-auto-flow: column;
-  grid-auto-columns: minmax(500px, 80vw);
   overflow-x: scroll;
   padding: 12px;
   margin-block: 64px;
@@ -238,6 +237,8 @@ h1 {
   /* flex-shrink: 0; */
   margin-inline: 20px;
   padding: 8px;
+  width: calc(100vw - 12px);
+  max-width: 500px;
 }
 .review p {
   color: var(--gray);

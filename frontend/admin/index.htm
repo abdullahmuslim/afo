@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin AFO</title>
+    <link rel="stylesheet" href="./index.css" />
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <div class="user">
+          <img src="./avatar.png" />
+          <span>Admin</span>
+        </div>
+      </header>
+      
+      <div class="bodyContent">
+        <main>
+          <div class="main">
+            
+          </div>
+        </main>
+        <aside>
+          <form>
+            <div class="cardTitles">
+              <div class="name">
+                <input type="text" name="name" id="" value="" placeholder="product name*" required />
+                <span class="instruction"></span>
+              </div>
+              <div class="label">
+                <input type="text" name="corner" id="" value="" placeholder="product label" />
+              </div>
+              <div>
+                <input type="text" name="description" id="" value="" placeholder="write short and attention sparking description*" required />
+                <span class="instruction"></span>
+              </div>
+              <div class="imageInput">
+                <img class="resetImage" width="32" src="./avatar.png" />
+                <p class="imageInfo">select an image</p>
+                <label for="filePicker" class="upload">
+                    <img width="20" src="./avatar.png" />
+                    upload
+                </label>
+                <input class="filePicker" type="file" name="image" id="filePicker" accept="image/*" alt="" required />
+                
+                <p class="uploadedImage"></p>
+              </div>
+              <textarea class="specification" name="specification" id="" placeholder="enter full spec details here" rows="8" cols="40"></textarea>
+              <div class="button">
+                <button class="reset" type="reset">clear edit</button>
+                <button class="submit" type="submit">add product</button>
+              </div>
+            </div>
+          </form>
+        </aside>
+      </div>
+    </aside>
+    <script src="./index.js" type="module" charset="utf-8"></script>
+  </body>
+</html>

@@ -1,0 +1,268 @@
+:root {
+  --primary-colour: #fffdfa;
+  --secondary-colour: #154724;
+  --accent-colour: #9fe644;
+  --gray: #a3a3a3;
+  --danger: #F08080;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100dvh;
+}
+
+.wrapper {
+  width: 100%;
+}
+
+header {
+  display: flex;
+  padding: 8px 16px;
+  background-color: var(--secondary-colour);
+}
+.user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+}
+.user img {
+  width: 32px;
+  height: 32px;
+  padding: 4px;
+  border-radius: 50%;
+  background-color: var(--primary-colour);
+}
+.user span {
+  display: none;
+}
+
+
+.bodyContent {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.main {
+  display: flex;
+  justify-content: center;
+  flex-flow: row wrap;
+  padding: 8px;
+  gap: 8px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 1px solid var(--accent-colour);
+  width: 165px;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.5);
+  border-radius: 4px;
+  transition: left 0.5s ease-out;
+  cursor: pointer;
+}
+
+.corner {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: absolute;
+  top: 8px;
+  left: 0;
+  padding: 4px 20px 4px 8px;
+  background-color: rgba(159, 230, 68, 0.6);
+  backdrop-filter: blur(10px);
+  clip-path: polygon(100% 0, 95% 50%, 100% 100%, 0 100%, 0 0);
+  font-weight: bold;
+}
+
+.card .img{
+  display: inline-block;
+  width: 100%;
+  aspect-ratio: 1;
+  background-size: 200% 100%;
+  background-image: linear-gradient(to right, var(--secondary-colour), var(--primary-colour), var(--secondary-colour));
+ animation: loading 2s ease-in-out infinite alternate;
+}
+
+.productName {
+  margin-top: 16px;
+  margin-bottom: 20px;
+}
+.productDesc {
+  margin-bottom: 12px;
+}
+.productAction {
+  align-self: flex-start;
+  justify-self: flex-end;
+  padding: 8px 16px;
+  margin-top: 8px;
+  border-radius: 4px;
+  background-color: ButtonFace;
+  font-weight: 900;
+  user-select: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.productAction:hover {
+  background-color: var(--danger);
+}
+
+aside {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
+  max-width: 350px;
+  padding: 12px;
+}
+aside form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 12px;
+}
+.imageInput {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border: 2px solid var(--gray);
+  padding: 8px;
+  max-width: 100%;
+  color: var(--gray);
+}
+.imageInput .imageInfo {
+  white-space: nowrap;
+  overflow-x: hidden;
+}
+.imageInput span {
+  font-weight: 700;
+  color: var(--accent-colour);
+}
+.filePicker {
+  display: none;
+}
+.resetImage {
+  display: none;
+}
+.imageInput .upload {
+  background-color: ButtonFace;
+  display: flex;
+}
+.uploadedImage {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+}
+
+.cardTitles {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  row-gap: 32px;
+}
+
+.cardTitles > * {
+  width: 100%;
+}
+.cardTitles input {
+  width: 100%;
+  height: 3em;
+  padding: 4px;
+  border: 2px solid var(--gray);
+  /* border-radius: 8px; */
+}
+.cardTitles input:focus, .description:focus {
+  border: 2px solid var(--accent-colour);
+}
+.cardTitles input::placeholder, .specification::placeholder, .cardTitles .imageInfo {
+  color: var(--gray);
+  font-size: 12px;
+  word-spacing: 2px;
+}
+.cardTitles .name {
+  width: 65%;
+  margin-right: 12px;
+}
+.cardTitles .label {
+  width: calc(35% - 12px);
+}
+.cardTitles .specification {
+  padding: 4px;
+  border: 2px solid var(--gray);
+  cursor: not-allowed;
+  /* border-radius: 8px; */
+}
+
+.button {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 12px;
+}
+button.submit, button.reset, .imageInput .upload {
+  user-select: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+button.submit {
+  background-color: var(--accent-colour);
+}
+
+@keyframes loading {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: -100% 0;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .bodyContent {
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: start;
+  }
+}
+
+@media screen and (min-width: 1279px) {
+  body {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--gray);
+  }
+  .wrapper {
+    width: 1279px;
+    padding-bottom: 20px;
+    background-color: var(--primary-colour);
+  }
+}

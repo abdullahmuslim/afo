@@ -1,6 +1,6 @@
 import Cards from "./components/Cards.js";
 
-const host = "http://localhost:1337";
+const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
 let authToken = null;

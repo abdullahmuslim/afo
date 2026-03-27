@@ -1,6 +1,6 @@
 import Carousel from "./carousel.js";
 
-const host = "http://localhost:1337";
+const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 
 export const dummyData = [
   {

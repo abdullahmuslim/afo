@@ -59,7 +59,7 @@ async function fetchData(endpoint){
     return res.json();
   }).then(res => {
     res = res.data.map(eachRes => {
-      return {...eachRes, img: host + eachRes.image[0].url}
+      return {...eachRes, img: eachRes.image[0].url}
     });
     
     const cards = new Carousel(res);

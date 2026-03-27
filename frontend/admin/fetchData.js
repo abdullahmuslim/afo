@@ -180,7 +180,7 @@ async function fetchData(endpoint) {
     data = data.data.map(eachRes => {
       return {
         ...eachRes,
-        img: eachRes.image && host + eachRes.image[0].url,
+        img: eachRes.image && eachRes.image[0].url,
         imgId: eachRes.image && eachRes.image[0].id,
         imgName:  eachRes.image && eachRes.image[0].name
       }

@@ -1,4 +1,5 @@
 import { loader } from "./loader.js";
+import Cards from "./components/Cards.js";
 
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
@@ -174,6 +175,12 @@ let wakeServer;
 async function fetchData(endpoint) {
   try {
     const response = await fetch(`${host + endpoint}?populate=image`);
+    if (response.status !== 503){
+      const splashScreen = document.querySelector(".splash-screen-wrapper");
+      splashScreen.style.display = "none";
+      clearTimeout(wakeServer);
+      clearTimeout(loader);
+    }
     if (!response.ok) {
       throw new Error("HTTP error: " + response.status);
     }
@@ -186,6 +193,7 @@ async function fetchData(endpoint) {
         imgName:  eachRes.image && eachRes.image[0].name
       }
     });
+    const cards = new Cards(data);
     return data;
   } catch (error) {
     if (error.name === "TypeError"){
@@ -193,7 +201,6 @@ async function fetchData(endpoint) {
       wakeServer = setTimeout(() => {
         fetchData(endpoint);
       }, 2000); // resend a request every 2secs to wake server
-      return;
     } else {
       console.error(error);
     }

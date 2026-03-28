@@ -7,5 +7,4 @@ const endpoint = "/api/products";
 
 const form = new Form();
 loading(true, 0);
-const data = await fetchData(endpoint);
-const cards = new Cards(data);
+await fetchData(endpoint);

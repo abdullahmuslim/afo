@@ -59,7 +59,6 @@ let wakeServer;
 async function fetchData(endpoint){
   fetch(`${host+endpoint}?populate=image`).then( res => {
     if (res.status !== 503){
-      console.log("server awake");
       const splashScreen = document.querySelector(".splash-screen-wrapper");
       splashScreen.style.display = "none";
       clearTimeout(wakeServer);
@@ -79,7 +78,6 @@ async function fetchData(endpoint){
       wakeServer = setTimeout(() => {
         fetchData(endpoint);
       }, 2000); // resend a request every 2secs to wake server
-      return;
     } else {
       console.error(error);
     }

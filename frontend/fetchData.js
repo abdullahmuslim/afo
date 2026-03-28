@@ -1,4 +1,5 @@
 import Carousel from "./carousel.js";
+import { loader } from "./loader.js";
 
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 
@@ -54,8 +55,23 @@ export const dummyData = [
   
 ];
 
+let wakeServer;
 async function fetchData(endpoint){
   fetch(`${host+endpoint}?populate=image`).then( res => {
+    console.log("waking server");
+    if (res.code === 503){
+      console.log("waking server 503");
+      wakeServer = setTimeout(() => {
+        fetchData(endpoint);
+      }, 5000); // resend a request every 5secs to wake server
+      return;
+    }
+    else if (res.code !== 503){
+      const splashScreen = document.querySelector(".splash-screen-wrapper");
+      splashScreen.style.display = "none";
+      clearTimeout(wakeServer);
+      clearTimeout(loader);
+    }
     return res.json();
   }).then(res => {
     res = res.data.map(eachRes => {

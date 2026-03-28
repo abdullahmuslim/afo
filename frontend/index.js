@@ -1,4 +1,3 @@
-import Carousel, {Card} from "./carousel.js";
 import fetchData from "./fetchData.js"
 import loading from "./loader.js";
 
@@ -19,4 +18,3 @@ logo.onload = () => {
 
 
 loading(true, 0);
-// loader = loading(true, 0);

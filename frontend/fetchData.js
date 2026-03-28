@@ -58,15 +58,8 @@ export const dummyData = [
 let wakeServer;
 async function fetchData(endpoint){
   fetch(`${host+endpoint}?populate=image`).then( res => {
-    console.log("waking server");
-    if (res.code === 503){
-      console.log("waking server 503");
-      wakeServer = setTimeout(() => {
-        fetchData(endpoint);
-      }, 5000); // resend a request every 5secs to wake server
-      return;
-    }
-    else if (res.code !== 503){
+    if (res.status !== 503){
+      console.log("server awake");
       const splashScreen = document.querySelector(".splash-screen-wrapper");
       splashScreen.style.display = "none";
       clearTimeout(wakeServer);
@@ -81,7 +74,15 @@ async function fetchData(endpoint){
     const cards = new Carousel(res);
     return res;
   }).catch(error => {
-    console.error(error);
+    if (error.name === "TypeError"){
+      // console.log("waking server 503");
+      wakeServer = setTimeout(() => {
+        fetchData(endpoint);
+      }, 2000); // resend a request every 2secs to wake server
+      return;
+    } else {
+      console.error(error);
+    }
   });
 }
 

@@ -1,4 +1,4 @@
-import Cards from "./components/Cards.js";
+import { loader } from "./loader.js";
 
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
@@ -170,6 +170,7 @@ export async function deleteItem(endpoint) {
   }
 }
 
+let wakeServer;
 async function fetchData(endpoint) {
   try {
     const response = await fetch(`${host + endpoint}?populate=image`);
@@ -186,8 +187,16 @@ async function fetchData(endpoint) {
       }
     });
     return data;
-  } catch (e) {
-    console.error(e.message);
+  } catch (error) {
+    if (error.name === "TypeError"){
+      // console.log("waking server 503");
+      wakeServer = setTimeout(() => {
+        fetchData(endpoint);
+      }, 2000); // resend a request every 2secs to wake server
+      return;
+    } else {
+      console.error(error);
+    }
   }
 }
 

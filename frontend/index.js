@@ -1,6 +1,5 @@
-import Carousel, {Card} from "./carousel.js";
 import fetchData from "./fetchData.js"
-
+import loading from "./loader.js";
 
 const endpoint = "/api/products";
 const fetchedData = fetchData(endpoint);
@@ -16,3 +15,6 @@ logo.onload = () => {
   loadAnime.style.display = "none";
   loadAnime.parentElement.appendChild(logo);
 }
+
+
+loading(true, 0);

@@ -1,3 +1,5 @@
+import left from "./images/left.png";
+
 class Carousel {
   // Defines the container for our carousel
 
@@ -28,8 +30,8 @@ class Carousel {
     container.innerHTML = `
       <div class="cards-holder"></div>
       <div class="carousel-buttons">
-        <button id="carousel-prev"><img src="./images/left.png" alt="prev" /></button>
-        <button id="carousel-next"><img src="./images/left.png" alt="next" /></button>
+        <button id="carousel-prev"><img src=${left} alt="prev" /></button>
+        <button id="carousel-next"><img src=${left} alt="next" /></button>
       </div>
       <div class="indicators"></div>
     `;

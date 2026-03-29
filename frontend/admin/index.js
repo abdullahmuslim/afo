@@ -1,4 +1,3 @@
-import Cards from "./components/Cards.js";
 import Form from "./components/Form.js";
 import fetchData from "./fetchData.js";
 import loading from "./loader.js";

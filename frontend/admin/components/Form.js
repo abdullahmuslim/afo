@@ -1,5 +1,6 @@
 import fetchData, { deleteItem, getImage, postData, putData, putImage } from "../fetchData.js";
 import Cards from "./Cards.js";
+import upload from "../avatar.png";
 
 class Form {
   constructor(
@@ -37,7 +38,7 @@ class Form {
         <img class="resetImage" width="32" src="./avatar.png" />
         <p class="imageInfo">${data.img || "select an image"}</p>
         <label for="filePicker" class="upload">
-          <img width="20" src="./avatar.png" />
+          <img width="20" src=${upload} />
           upload
         </label>
         <input class="filePicker" type="file" name="image" id="filePicker" accept="image/*" alt="" />

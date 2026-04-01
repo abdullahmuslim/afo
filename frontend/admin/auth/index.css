@@ -1,0 +1,97 @@
+:root {
+  --primary-colour: #fffdfa;
+  --secondary-colour: #154724;
+  --accent-colour: #9fe644;
+  --gray: #a3a3a3;
+  --danger: #F08080;
+  --accent-glow: rgba(159, 230, 68, 0.15);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  outline: none;
+  border: none;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100dvh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 12px;
+  width: max-content;
+}
+
+.form-field {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  row-gap: 32px;
+}
+
+.form-field > div {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+.form-field input {
+  width: 100%;
+  height: 3em;
+  padding: 4px;
+  border: 2px solid var(--gray);
+  accent-color: var(--accent-colour);
+  /* border-radius: 8px; */
+}
+
+.form-field input:focus {
+  border: 2px solid var(--accent-colour);
+}
+.form-field input::placeholder {
+  color: var(--gray);
+  font-size: 12px;
+  word-spacing: 2px;
+}
+button.submit {
+  user-select: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 900;
+  width: 100%;
+  cursor: pointer;
+  background-color: var(--accent-colour);
+}
+.form-field .persist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+  border: 2px dotted var(--accent-colour);
+  cursor: pointer;
+}
+.persist input {
+  width: 32px;
+}
+div .instruction {
+  color: var(--danger);
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    align-items: center;
+  }
+}

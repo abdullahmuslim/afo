@@ -1,4 +1,5 @@
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
+const authEndpoint = "/api/auth/local";
 
 const verify = () => {
   const identifier = document.getElementById("identifier")
@@ -19,7 +20,7 @@ const verify = () => {
   }
 
   if (passwordValue.length <= 8){
-    passwordErrorDisplay = "password is too short";
+    passwordErrorDisplay.textContent = "password is too short";
     return false;
   }
 

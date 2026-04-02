@@ -29,7 +29,7 @@ form {
   display: flex;
   flex-direction: column;
   align-items: start;
-  padding: 12px;
+  padding: 38px 32px;
   width: max-content;
 }
 
@@ -37,7 +37,7 @@ form {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
-  row-gap: 32px;
+  row-gap: 28px;
 }
 
 .form-field > div {
@@ -76,6 +76,7 @@ button.submit {
 
 .form-field .persist {
   display: flex;
+  display: none;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
@@ -92,6 +93,11 @@ div .instruction {
   position: absolute;
   bottom: -24px;
   left: 0;
+}
+.loginError {
+  display: inline-block;
+  color: var(--danger);
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {

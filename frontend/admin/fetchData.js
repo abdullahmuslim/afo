@@ -4,30 +4,15 @@ import Cards from "./components/Cards.js";
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
-let authToken = null;
-
-async function authorize() {
-  const payload = {
-    identifier: "tester",
-    password: "Testing123..."
-  }
-
-  const reponse = await fetch(host + authEndpoint, {
-    method: "POST",
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  }).then(response => response.json()).then(res => {
-    return res.jwt;
-  });
-  return reponse;
-}
-
 async function getToken() {
-  if (!authToken) {
-    authToken = await authorize();
+  const userInfo = localStorage.getItem("userInfo");
+  if (userInfo === null) {
+    location.href = "./auth/";
+  } else if (userInfo.expiryDate < Date.now()) {
+    location.href = "./auth/";
   }
+  
+  const authToken = userInfo.jwt;
   return authToken;
 }
 

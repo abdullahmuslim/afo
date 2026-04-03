@@ -1,3 +1,7 @@
+import hide from "./assets/hide.svg";
+import show from "./assets/show.svg";
+import loadingMotion from "./assets/loadingMotion.svg";
+
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
@@ -5,6 +9,8 @@ const authEndpoint = "/api/auth/local";
 if (localStorage.getItem("userInfo") !== null) {
   location.replace("../");
 }
+
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const verify = () => {
   const identifier = document.getElementById("identifier")
@@ -46,7 +52,8 @@ async function authorize(identifier, password) {
     password
   }
   
-  const response = await fetch(host + authEndpoint, {
+  loading(true);
+  let response = await fetch(host + authEndpoint, {
     method: "POST",
     headers: {
       'Content-Type': 'application/json'
@@ -55,7 +62,7 @@ async function authorize(identifier, password) {
   })
   .then(response => {
     if (response.ok) {
-      return response.json()
+      return response.json();
     } else {
       return {serverRes: response.status};
     }
@@ -64,7 +71,7 @@ async function authorize(identifier, password) {
   .catch(error => {
     console.error(error);
   });
-
+  if (!response) response = { serverRes: 503};
   return { serverRes: 200, ...response };
 }
 
@@ -78,7 +85,14 @@ const handleSubmit = async (event) => {
   // verify input
   const verified = verify();
   if (verified) {
-    const response = await authorize(identifier, password);
+    let response = await authorize(identifier, password);
+    
+    while(response.serverRes === 503){
+      response = await authorize(identifier, password);
+      await sleep(2000);
+    }
+    
+    console.log(response);
     if (response.serverRes === 200){
       const info = {jwt: response.jwt, expiryDate: Date.now() + (86400 * 7 * 1000), username: response.user.username};
       localStorage.setItem("userInfo", JSON.stringify(info));
@@ -88,6 +102,7 @@ const handleSubmit = async (event) => {
       loginErrorEl.textContent = "invalid username or password";
       // show error message
     }
+    loading(false);
 
   }
 }
@@ -105,12 +120,34 @@ inputs.forEach(input => {
   input.addEventListener("blur", verify);
 });
 
-const passwordEl = document.getElementById("password");
+const visibility = document.querySelector(".input.password .icon");
+
 const showPassowrd = () => {
+  const passwordEl = document.getElementById("password");
   passwordEl.setAttribute("type", "text");
+  visibility.src = show;
 }
 const hidePassowrd = () => {
+  const passwordEl = document.getElementById("password");
   passwordEl.setAttribute("type", "password");
+  visibility.src = hide;
 }
-passwordEl.addEventListener("mousedown", showPassowrd);
-passwordEl.addEventListener("mouseup", hidePassowrd);
+visibility.addEventListener("mousedown", showPassowrd);
+visibility.addEventListener("touchstart", showPassowrd);
+
+visibility.addEventListener("mouseup", hidePassowrd);
+visibility.addEventListener("touchend", hidePassowrd);
+
+const loading = state => {
+  const button = document.querySelector("button.submit");
+  if (state) {
+    button.innerHTML = `
+      <img class="loader" src=${loadingMotion} alt="" />
+    `;
+    button.classList.add("loading");
+    button.children[0].style.display = "inline";
+  } else {
+    button.textContent = "Log In";
+    button.classList.remove("loading");
+  }
+}

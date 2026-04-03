@@ -13,17 +13,21 @@
     <div class="form-field">
 
       <span class="loginError"></span>
-      <div>
+      <div class="input">
         <input type="text" name="identifier" id="identifier" value="" placeholder="enter username or email" />
         <span class="instruction"></span>
       </div>
-      <div>
+      <div class="input password">
         <input type="password" name="password" id="password" value="" placeholder="enter password" />
         <span class="instruction"></span>
+        <span><img class="icon" src="./assets/hide.svg" alt="" oncontextmenu="return false;" /></span>
         <!-- forgotten password should go here -->
       </div>
       <div>
-        <button type="submit" class="submit">Log In</button>
+        <button type="submit" class="submit">
+          <img class="loader" src="./assets/loadingMotion.svg" alt="" />
+          Log In
+        </button>
       </div>
       <label class="persist" for="checkbox">
         <input type="checkbox" name="checkbox" id="checkbox" />
@@ -31,7 +35,7 @@
       </label>
     </div>
   </form>
-  <script src="./index.js"></script>
+  <script type="module" src="./index.js"></script>
 </body>
 
 </html>

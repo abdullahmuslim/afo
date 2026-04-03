@@ -1,11 +1,12 @@
 import { loader } from "./loader.js";
 import Cards from "./components/Cards.js";
+import { loading } from "./components/Form.js";
 
 const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
 async function getToken() {
-  const userInfo = localStorage.getItem("userInfo");
+  const userInfo = JSON.parse(localStorage.getItem("userInfo"));
   if (userInfo === null) {
     location.href = "./auth/";
   } else if (userInfo.expiryDate < Date.now()) {
@@ -89,6 +90,7 @@ export async function postData(endpoint, productData) {
       body: JSON.stringify({ data: productData }),
     });
     if (!response.ok) {
+      loading(false);
       throw new Error("HTTP Error: " + response.status);
     }
     return await response.json();
@@ -111,6 +113,7 @@ export async function putData(endpoint, productData) {
       body: JSON.stringify({ data: productData }),
     });
     if (!response.ok) {
+      loading(false);
       throw new Error("HTTP Error: " + response.status);
     }
     const data = await response.json();

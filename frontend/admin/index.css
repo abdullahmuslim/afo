@@ -147,7 +147,7 @@ header {
 }
 .user {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   margin-left: auto;
 }
@@ -159,7 +159,8 @@ header {
   background-color: var(--primary-colour);
 }
 .user span {
-  display: none;
+  color: var(--primary-colour);
+  padding-right: 8px;
 }
 
 
@@ -177,10 +178,12 @@ main {
 }
 .main {
   display: flex;
-  justify-content: center;
-  flex-flow: row wrap;
+  flex-wrap: wrap;
+  justify-content: start;
   padding: 8px;
   gap: 8px;
+  width: fit-content;
+  margin: 0 auto;
 }
 .card {
   position: relative;
@@ -348,6 +351,13 @@ button.submit, button.reset, .imageInput .upload {
 
 button.submit {
   background-color: var(--accent-colour);
+}
+button.loading {
+  background-color: ButtonFace;
+}
+.loader {
+  display: none;
+  height: calc(3em - 16px);
 }
 
 @keyframes loading {

@@ -346,6 +346,7 @@ h1 {
   overflow-x: scroll;
   padding: 14px;
   margin-block: 64px;
+  scroll-snap-type: x mandatory;
 }
 .review {
   display: flex;
@@ -353,8 +354,9 @@ h1 {
   /* flex-shrink: 0; */
   margin-inline: 20px;
   padding: 8px;
-  width: calc(100vw - 14px);
+  width: calc(100vw - 16px);
   max-width: 500px;
+  scroll-snap-align: center;
 }
 .review p {
   color: var(--gray);

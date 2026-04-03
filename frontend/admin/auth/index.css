@@ -35,9 +35,10 @@ form {
 
 .form-field {
   display: flex;
-  flex-flow: row wrap;
+  flex-direction: column;
   justify-content: space-between;
   row-gap: 28px;
+  width: 90vw;
 }
 
 .form-field > div {
@@ -120,11 +121,13 @@ div .instruction {
 .loginError {
   display: inline-block;
   color: var(--danger);
-  width: 100%;
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 600px) {
   body {
     align-items: center;
+  }
+  .form-field {
+    width: 600px;
   }
 }

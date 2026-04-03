@@ -69,7 +69,7 @@ async function authorize(identifier, password) {
   })
   .then(res =>  res)
   .catch(error => {
-    console.error(error);
+    console.log(error);
   });
   if (!response) response = { serverRes: 503};
   return { serverRes: 200, ...response };
@@ -87,20 +87,24 @@ const handleSubmit = async (event) => {
   if (verified) {
     let response = await authorize(identifier, password);
     
-    while(response.serverRes === 503){
+    if (!navigator.onLine) {
+      // show error message
+      const loginErrorEl = document.querySelector(".loginError");
+      loginErrorEl.textContent = "check your internet connection";
+    }
+    while(response.serverRes === 503 && navigator.onLine){
       response = await authorize(identifier, password);
       await sleep(2000);
     }
     
-    console.log(response);
     if (response.serverRes === 200){
       const info = {jwt: response.jwt, expiryDate: Date.now() + (86400 * 7 * 1000), username: response.user.username};
       localStorage.setItem("userInfo", JSON.stringify(info));
       location.replace("../");
     }else if (response.serverRes === 400){
+      // show error message
       const loginErrorEl = document.querySelector(".loginError");
       loginErrorEl.textContent = "invalid username or password";
-      // show error message
     }
     loading(false);
 

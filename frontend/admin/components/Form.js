@@ -1,6 +1,7 @@
-import fetchData, { deleteItem, getImage, postData, putData, putImage } from "../fetchData.js";
+import fetchData, { deleteItem, postData, putData, putImage } from "../fetchData.js";
 import Cards from "./Cards.js";
 import upload from "../avatar.png";
+import loadingMotion from "../loadingMotion.svg";
 
 class Form {
   constructor(
@@ -105,6 +106,7 @@ class Form {
       const formData = new FormData(form);
       const data = Object.fromEntries(formData.entries())
 
+      loading(true);
       const placeholder = document.querySelector(".imageInfo").textContent;
       let image;
       
@@ -151,6 +153,20 @@ class Form {
     }
     form.removeEventListener("submit", verify);
     form.addEventListener("submit", verify);
+  }
+}
+
+export const loading = state => {
+  const button = document.querySelector("button.submit");
+  if (state) {
+    button.innerHTML = `
+      <img class="loader" src=${loadingMotion} alt="" />
+    `;
+    button.classList.add("loading");
+    button.children[0].style.display = "inline";
+  } else {
+    button.textContent = "add product";
+    button.classList.remove("loading");
   }
 }
 

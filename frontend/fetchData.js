@@ -1,7 +1,7 @@
 import Carousel from "./carousel.js";
 import { loader } from "./loader.js";
 
-const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
+const host = "https://great-excitement-009d6e4afb.strapiapp.com";
 
 export const dummyData = [
   {

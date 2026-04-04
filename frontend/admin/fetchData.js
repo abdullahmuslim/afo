@@ -135,6 +135,7 @@ export async function putImage(endpoint, formData) {
       body: formData,
     });
     if (!response.ok) {
+      loading(false);
       throw new Error("HTTP Error: " + response.status);
     }
     const data = response.json();

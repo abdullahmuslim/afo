@@ -1,7 +1,8 @@
-import fetchData, { deleteItem, postData, putData, putImage } from "../fetchData.js";
-import Cards from "./Cards.js";
+import fetchData, { deleteItem, postData, putData, putImage } from "../fetchData.js"; 
 import upload from "../upload.svg";
 import loadingMotion from "../loadingMotion.svg";
+
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class Form {
   constructor(
@@ -107,11 +108,12 @@ class Form {
       const data = Object.fromEntries(formData.entries())
 
       loading(true);
-      const placeholder = document.querySelector(".imageInfo").textContent;
+      const placeholder = cardInfo.img;
       let image;
       
       // get image data
-      if (placeholder.startsWith("http")) {
+      const imgId = cardInfo.imgId;
+      if (imgId) {
         const response = await fetch(placeholder);
         const result = await response.blob();
         image = new File([result], cardInfo.imgName);
@@ -124,17 +126,20 @@ class Form {
         //determine to update or upload entries
         const id = cardInfo.documentId;
         let uploadResponse;
-        if (id) {
-          uploadResponse = await putData(`/api/products/${id}`, data);
-        } else {
-          uploadResponse = await postData("/api/products", data);
+        while (!uploadResponse){
+          if (id) {
+            uploadResponse = await putData(`/api/products/${id}`, data);
+          } else {
+            uploadResponse = await postData("/api/products", data);
+          }
+          await sleep(2000);
         }
+        console.log(image);
         const imageData = new FormData();
         imageData.append("files", image);
         imageData.append('ref', 'api::product.product'); // Collection UID
         imageData.append('refId', uploadResponse.data.id); // Entry ID
         imageData.append('field', 'image');
-        const imgId = cardInfo.imgId;
 
         
         // delete old image
@@ -146,7 +151,6 @@ class Form {
         if (imageUploadResponse) {
           clearForm();
           const data = await fetchData("/api/products");
-          const cards = new Cards(data);
         }
       }
 

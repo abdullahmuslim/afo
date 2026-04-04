@@ -2,7 +2,7 @@ import { loader } from "./loader.js";
 import Cards from "./components/Cards.js";
 import { loading } from "./components/Form.js";
 
-const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
+const host = "https://great-excitement-009d6e4afb.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
 async function getToken() {

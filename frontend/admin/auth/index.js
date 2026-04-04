@@ -2,7 +2,7 @@ import hide from "./assets/hide.svg";
 import show from "./assets/show.svg";
 import loadingMotion from "./assets/loadingMotion.svg";
 
-const host = "https://special-dream-2d5e7f6b1a.strapiapp.com";
+const host = "https://great-excitement-009d6e4afb.strapiapp.com";
 const authEndpoint = "/api/auth/local";
 
 // check if already authenticated

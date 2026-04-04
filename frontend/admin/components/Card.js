@@ -46,7 +46,8 @@ class Card {
     const cardInfo = JSON.parse(product.dataset.cardInfo);
     const imgId = cardInfo.imgId;
     if (imgId) await deleteItem(`/api/upload/files/${imgId}`);
-    await deleteItem(`/api/products/${cardInfo.documentId}`)
+    await deleteItem(`/api/products/${cardInfo.documentId}`);
+    location.reload();
   }
 }
 

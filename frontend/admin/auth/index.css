@@ -1,0 +1,133 @@
+:root {
+  --primary-colour: #fffdfa;
+  --secondary-colour: #154724;
+  --accent-colour: #9fe644;
+  --gray: #a3a3a3;
+  --danger: #F08080;
+  --accent-glow: rgba(159, 230, 68, 0.15);
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+  scrollbar-width: none;
+}
+*:focus {
+  outline: none;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  width: 100vw;
+  min-height: 100dvh;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 38px 32px;
+  width: max-content;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 28px;
+  width: 90vw;
+}
+
+.form-field > div {
+  position: relative;
+  width: 100%;
+  margin-bottom: 12px;
+}
+.form-field .input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding-right: 8px;
+  border: 2px solid var(--gray);
+}
+.form-field .input:focus-within {
+  border: 2px solid var(--accent-colour);
+}
+.form-field input {
+  width: 100%;
+  height: 3em;
+  padding: 4px;
+  accent-color: var(--accent-colour);
+  /* border-radius: 8px; */
+}
+
+.form-field input::placeholder {
+  color: var(--gray);
+  font-size: 12px;
+  word-spacing: 2px;
+}
+.icon {
+  width: 32px;
+  cursor: pointer;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+button.submit {
+  user-select: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-weight: 900;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  background-color: var(--accent-colour);
+}
+button.loading {
+  background-color: ButtonFace;
+}
+button.submit:active {
+  background-color: ButtonFace;
+}
+.loader {
+  display: none;
+  height: calc(3em - 16px);
+}
+
+.form-field .persist {
+  display: flex;
+  display: none;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  width: 100%;
+  border: 3px dotted var(--accent-colour);
+  cursor: pointer;
+}
+.persist input {
+  width: 24px;
+}
+div .instruction {
+  color: var(--danger);
+  position: absolute;
+  bottom: -24px;
+  left: 0;
+}
+.loginError {
+  display: inline-block;
+  color: var(--danger);
+}
+
+@media screen and (min-width: 600px) {
+  body {
+    align-items: center;
+  }
+  .form-field {
+    width: 600px;
+  }
+}

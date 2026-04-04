@@ -108,20 +108,20 @@ class Form {
       const data = Object.fromEntries(formData.entries())
 
       loading(true);
-      const placeholder = cardInfo.img;
+      const url = cardInfo.img;
+      const placeholder = document.querySelector(".imageInfo").textContent;
       let image;
       
       // get image data
-      const imgId = cardInfo.imgId;
-      if (imgId) {
-        const response = await fetch(placeholder);
+      if (placeholder === cardInfo.imgName) {
+        const response = await fetch(url);
         const result = await response.blob();
         image = new File([result], cardInfo.imgName);
       } else {
         image = data.image;
       }
       const deleted = delete data.image;
-
+      
       if (verified) {
         //determine to update or upload entries
         const id = cardInfo.documentId;
@@ -134,15 +134,15 @@ class Form {
           }
           await sleep(2000);
         }
-        console.log(image);
         const imageData = new FormData();
         imageData.append("files", image);
         imageData.append('ref', 'api::product.product'); // Collection UID
         imageData.append('refId', uploadResponse.data.id); // Entry ID
         imageData.append('field', 'image');
-
+        
         
         // delete old image
+        const imgId = cardInfo.imgId;
         if (imgId) { 
           await deleteItem(`/api/upload/files/${imgId}`);
         }
